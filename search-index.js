@@ -1,0 +1,90 @@
+window.SEARCH_INDEX = [
+  {
+    title: "Admission Webhook 开发",
+    desc: "Kubernetes Admission Webhook 机制详解：Mutating / Validating 流程、AdmissionReview 返回格式、Python Flask 实现及证书配置完整指南。",
+    tags: ["kubernetes", "python"],
+    category: "kubernetes",
+    date: "2026-05-12",
+    url: "posts/admission-webhook.html"
+  },
+  {
+    title: "ConfigMap 与 Secret",
+    desc: "Kubernetes ConfigMap 和 Secret 详解：创建方式、环境变量引用、卷挂载使用，以及 Secret 内置类型与安全实践。",
+    tags: ["kubernetes"],
+    category: "kubernetes",
+    date: "2026-05-15",
+    url: "posts/configmap-secret.html"
+  },
+  {
+    title: "IP包结构与MTU位置",
+    desc: "IP 包结构与 MTU 详解：头部字段含义、MTU 在协议栈中的位置、分片与 PMTUD 机制，以及各层封装的嵌套关系。",
+    tags: ["network"],
+    category: "network",
+    date: "2026-05-15",
+    url: "posts/ip包结构与mtu位置.html"
+  },
+  {
+    title: "Harness Engineering 是什么",
+    desc: "当 AI 智能体取代人类成为代码主要生产者时，工程师从"写代码"转向"设计环境、明确意图、构建反馈回路"，让智能体可靠执行——人类掌舵，智能体执行。",
+    tags: ["ai"],
+    category: "ai",
+    date: "2026-05-15",
+    url: "posts/harness-engineering是什么.html"
+  },
+  {
+    title: "AI常见术语",
+    desc: "AI 基础术语详解：拟合与过拟合的区别、符号主义与联结主义的核心思想、权重和偏移量的作用、激活函数引入非线性的必要性。",
+    tags: ["ai"],
+    category: "ai",
+    date: "2026-05-15",
+    url: "posts/ai常见术语.html"
+  },
+  {
+    title: "NLP基础概念",
+    desc: "NLP 文本表示进化史：从 VSM 稀疏向量到 N-gram 接龙猜词，再到 Word2Vec 稠密语义向量和 ELMo 语境动态表示，一步步走向现代大模型。",
+    tags: ["ai"],
+    category: "ai",
+    date: "2026-05-15",
+    url: "posts/nlp基础概念.html"
+  },
+  {
+    title: "LLM类型介绍",
+    desc: "大语言模型分类概览：Base 模型与 Chat 模型的区别、多模态 LLM、Agent 模型、Code 模型，以及提示（Prompting）与微调（Fine-tuning）的差异。",
+    tags: ["ai"],
+    category: "ai",
+    date: "2026-05-15",
+    url: "posts/llm类型介绍.html"
+  },
+  {
+    title: "训练微调与强化学习",
+    desc: "LLM 三阶段训练范式：预训练、微调、强化学习的核心逻辑，以及将大模型类比操作系统内核的独特视角——Agent 开发就是开发 LLM 上的应用程序。",
+    tags: ["ai"],
+    category: "ai",
+    date: "2026-05-15",
+    url: "posts/训练微调与强化学习.html"
+  },
+  {
+    title: "大模型怎么练出来",
+    desc: "从数据准备到模型部署的完整流程：Tokenizer (BPE)、数据清洗八步骤、预训练与后训练 (SFT/RLHF/DPO)、神经网络训练原理与反向传播。",
+    tags: ["ai"],
+    category: "ai",
+    date: "2026-05-15",
+    url: "posts/大模型怎么练出来.html"
+  },
+  {
+    title: "模型推理",
+    desc: "LLM 推理流程六步走：分词 → 嵌入 → Transformer 计算 → 输出 Logits → 采样 → 自回归生成，逐 token 循环直到结束。",
+    tags: ["ai"],
+    category: "ai",
+    date: "2026-05-15",
+    url: "posts/模型推理.html"
+  },
+  {
+    title: "Function Calling与MCP",
+    desc: "LLM 工具调用全链路：Function Calling 五步流程、MCP 标准化协议的客户端/服务器架构、Tool 与 Skill 的区别及技能四要素。",
+    tags: ["ai"],
+    category: "ai",
+    date: "2026-05-15",
+    url: "posts/function-calling与mcp.html"
+  }
+];

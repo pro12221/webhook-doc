@@ -84,173 +84,405 @@
         <p>个人技术笔记，记录学习与实践中的关键知识点。</p>
       </div>
 
-      <!-- ===== Kubernetes ===== -->
-      <div class="category-group" id="kubernetes">
-        <div class="category-group-title">
-          <span class="cat-dot" style="background:var(--tag-k8s)"></span>
-          Kubernetes
-        </div>
-
-        <a href="posts/admission-webhook.html" class="post-card">
-          <div class="post-card-title">Admission Webhook 开发</div>
-          <div class="post-card-desc">Kubernetes Admission Webhook 机制详解：Mutating / Validating 流程、AdmissionReview 返回格式、Python Flask 实现及证书配置完整指南。</div>
-          <div class="post-card-meta">
-            <span><span class="tag tag-k8s">Kubernetes</span><span class="tag tag-python">Python</span></span>
-            <span>2026-05-12</span>
-          </div>
-        </a>
-        <a href="posts/configmap-secret.html" class="post-card">
-          <div class="post-card-title">ConfigMap 与 Secret</div>
-          <div class="post-card-desc">Kubernetes ConfigMap 和 Secret 详解：创建方式、环境变量引用、卷挂载使用，以及 Secret 内置类型与安全实践。</div>
-          <div class="post-card-meta">
-            <span><span class="tag tag-k8s">Kubernetes</span></span>
-            <span>2026-05-15</span>
-          </div>
-        </a>
+      <!-- Search Bar -->
+      <div class="search-bar">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search-input" placeholder="搜索笔记标题、内容..." autocomplete="off">
+        <button class="search-clear" id="search-clear" title="清除搜索">&times;</button>
       </div>
 
-      <!-- ===== Go ===== -->
-      <div class="category-group" id="go">
-        <div class="category-group-title">
-          <span class="cat-dot" style="background:var(--tag-go)"></span>
-          Go
-        </div>
-        <div class="empty-state">
-          <p>暂无笔记，敬请期待 ✍️</p>
-        </div>
+      <!-- Tag Filter Bar -->
+      <div class="tag-filter-bar" id="tag-filter-bar">
+        <button class="tag-filter-btn active" data-tag="">全部</button>
+        <button class="tag-filter-btn" data-tag="kubernetes"><span class="dot" style="background:var(--tag-k8s)"></span>Kubernetes</button>
+        <button class="tag-filter-btn" data-tag="go"><span class="dot" style="background:var(--tag-go)"></span>Go</button>
+        <button class="tag-filter-btn" data-tag="python"><span class="dot" style="background:var(--tag-python)"></span>Python</button>
+        <button class="tag-filter-btn" data-tag="devops"><span class="dot" style="background:var(--tag-devops)"></span>DevOps</button>
+        <button class="tag-filter-btn" data-tag="linux"><span class="dot" style="background:var(--tag-linux)"></span>Linux</button>
+        <button class="tag-filter-btn" data-tag="network"><span class="dot" style="background:var(--tag-network)"></span>Network</button>
+        <button class="tag-filter-btn" data-tag="ai"><span class="dot" style="background:var(--tag-ai)"></span>AI</button>
       </div>
 
-      <!-- ===== Python ===== -->
-      <div class="category-group" id="python">
-        <div class="category-group-title">
-          <span class="cat-dot" style="background:var(--tag-python)"></span>
-          Python
-        </div>
-        <div class="empty-state">
-          <p>暂无笔记，敬请期待 ✍️</p>
-        </div>
+      <!-- Sort Controls -->
+      <div class="sort-controls" id="sort-controls">
+        <span class="sort-label">排序</span>
+        <button class="sort-btn active" data-sort="date-desc">时间 ↓</button>
+        <button class="sort-btn" data-sort="date-asc">时间 ↑</button>
+        <button class="sort-btn" data-sort="title-asc">标题 A-Z</button>
       </div>
 
-      <!-- ===== DevOps ===== -->
-      <div class="category-group" id="devops">
-        <div class="category-group-title">
-          <span class="cat-dot" style="background:var(--tag-devops)"></span>
-          DevOps
+      <!-- Search Results (hidden by default) -->
+      <div class="search-results" id="search-results" style="display:none">
+        <div class="search-results-header">
+          <span id="search-results-count"></span>
+          <button class="search-results-clear" id="search-results-clear">返回全部</button>
         </div>
-        <div class="empty-state">
-          <p>暂无笔记，敬请期待 ✍️</p>
-        </div>
+        <div id="search-results-list"></div>
       </div>
 
-      <!-- ===== Linux ===== -->
-      <div class="category-group" id="linux">
-        <div class="category-group-title">
-          <span class="cat-dot" style="background:var(--tag-linux)"></span>
-          Linux
-        </div>
-        <div class="empty-state">
-          <p>暂无笔记，敬请期待 ✍️</p>
-        </div>
-      </div>
+      <!-- Original Category View -->
+      <div id="category-view">
 
-      <!-- ===== Network ===== -->
-      <div class="category-group" id="network">
-        <div class="category-group-title">
-          <span class="cat-dot" style="background:var(--tag-network)"></span>
-          Network
-        </div>
-        <a href="posts/ip包结构与mtu位置.html" class="post-card">
-          <div class="post-card-title">IP包结构与MTU位置</div>
-          <div class="post-card-desc">IP 包结构与 MTU 详解：头部字段含义、MTU 在协议栈中的位置、分片与 PMTUD 机制，以及各层封装的嵌套关系。</div>
-          <div class="post-card-meta">
-            <span><span class="tag tag-network">Network</span></span>
-            <span>2026-05-15</span>
+        <!-- ===== Kubernetes ===== -->
+        <div class="category-group" id="kubernetes">
+          <div class="category-group-title">
+            <span class="cat-dot" style="background:var(--tag-k8s)"></span>
+            Kubernetes
           </div>
-        </a>
-      </div>
+          <div class="post-cards" data-category="kubernetes">
+            <a href="posts/admission-webhook.html" class="post-card" data-title="Admission Webhook 开发" data-date="2026-05-12" data-tags="kubernetes,python">
+              <div class="post-card-title">Admission Webhook 开发</div>
+              <div class="post-card-desc">Kubernetes Admission Webhook 机制详解：Mutating / Validating 流程、AdmissionReview 返回格式、Python Flask 实现及证书配置完整指南。</div>
+              <div class="post-card-meta">
+                <span><span class="tag tag-k8s">Kubernetes</span><span class="tag tag-python">Python</span></span>
+                <span>2026-05-12</span>
+              </div>
+            </a>
+            <a href="posts/configmap-secret.html" class="post-card" data-title="ConfigMap 与 Secret" data-date="2026-05-15" data-tags="kubernetes">
+              <div class="post-card-title">ConfigMap 与 Secret</div>
+              <div class="post-card-desc">Kubernetes ConfigMap 和 Secret 详解：创建方式、环境变量引用、卷挂载使用，以及 Secret 内置类型与安全实践。</div>
+              <div class="post-card-meta">
+                <span><span class="tag tag-k8s">Kubernetes</span></span>
+                <span>2026-05-15</span>
+              </div>
+            </a>
+          </div>
+        </div>
 
-      <!-- ===== AI ===== -->
-      <div class="category-group" id="ai">
-        <div class="category-group-title">
-          <span class="cat-dot" style="background:var(--tag-ai)"></span>
-          AI
+        <!-- ===== Go ===== -->
+        <div class="category-group" id="go">
+          <div class="category-group-title">
+            <span class="cat-dot" style="background:var(--tag-go)"></span>
+            Go
+          </div>
+          <div class="post-cards" data-category="go"></div>
+          <div class="empty-state">
+            <p>暂无笔记，敬请期待 ✍️</p>
+          </div>
         </div>
-        <a href="posts/harness-engineering是什么.html" class="post-card">
-          <div class="post-card-title">Harness Engineering 是什么</div>
-          <div class="post-card-desc">当 AI 智能体取代人类成为代码主要生产者时，工程师从"写代码"转向"设计环境、明确意图、构建反馈回路"，让智能体可靠执行——人类掌舵，智能体执行。</div>
-          <div class="post-card-meta">
-            <span><span class="tag tag-ai">AI</span></span>
-            <span>2026-05-15</span>
+
+        <!-- ===== Python ===== -->
+        <div class="category-group" id="python">
+          <div class="category-group-title">
+            <span class="cat-dot" style="background:var(--tag-python)"></span>
+            Python
           </div>
-        </a>
-        <a href="posts/ai常见术语.html" class="post-card">
-          <div class="post-card-title">AI常见术语</div>
-          <div class="post-card-desc">AI 基础术语详解：拟合与过拟合的区别、符号主义与联结主义的核心思想、权重和偏移量的作用、激活函数引入非线性的必要性。</div>
-          <div class="post-card-meta">
-            <span><span class="tag tag-ai">AI</span></span>
-            <span>2026-05-15</span>
+          <div class="post-cards" data-category="python"></div>
+          <div class="empty-state">
+            <p>暂无笔记，敬请期待 ✍️</p>
           </div>
-        </a>
-        <a href="posts/nlp基础概念.html" class="post-card">
-          <div class="post-card-title">NLP基础概念</div>
-          <div class="post-card-desc">NLP 文本表示进化史：从 VSM 稀疏向量到 N-gram 接龙猜词，再到 Word2Vec 稠密语义向量和 ELMo 语境动态表示，一步步走向现代大模型。</div>
-          <div class="post-card-meta">
-            <span><span class="tag tag-ai">AI</span></span>
-            <span>2026-05-15</span>
+        </div>
+
+        <!-- ===== DevOps ===== -->
+        <div class="category-group" id="devops">
+          <div class="category-group-title">
+            <span class="cat-dot" style="background:var(--tag-devops)"></span>
+            DevOps
           </div>
-        </a>
-        <a href="posts/llm类型介绍.html" class="post-card">
-          <div class="post-card-title">LLM类型介绍</div>
-          <div class="post-card-desc">大语言模型分类概览：Base 模型与 Chat 模型的区别、多模态 LLM、Agent 模型、Code 模型，以及提示（Prompting）与微调（Fine-tuning）的差异。</div>
-          <div class="post-card-meta">
-            <span><span class="tag tag-ai">AI</span></span>
-            <span>2026-05-15</span>
+          <div class="post-cards" data-category="devops"></div>
+          <div class="empty-state">
+            <p>暂无笔记，敬请期待 ✍️</p>
           </div>
-        </a>
-        <a href="posts/训练微调与强化学习.html" class="post-card">
-          <div class="post-card-title">训练微调与强化学习</div>
-          <div class="post-card-desc">LLM 三阶段训练范式：预训练、微调、强化学习的核心逻辑，以及将大模型类比操作系统内核的独特视角——Agent 开发就是开发 LLM 上的应用程序。</div>
-          <div class="post-card-meta">
-            <span><span class="tag tag-ai">AI</span></span>
-            <span>2026-05-15</span>
+        </div>
+
+        <!-- ===== Linux ===== -->
+        <div class="category-group" id="linux">
+          <div class="category-group-title">
+            <span class="cat-dot" style="background:var(--tag-linux)"></span>
+            Linux
           </div>
-        </a>
-        <a href="posts/大模型怎么练出来.html" class="post-card">
-          <div class="post-card-title">大模型怎么练出来</div>
-          <div class="post-card-desc">从数据准备到模型部署的完整流程：Tokenizer (BPE)、数据清洗八步骤、预训练与后训练 (SFT/RLHF/DPO)、神经网络训练原理与反向传播。</div>
-          <div class="post-card-meta">
-            <span><span class="tag tag-ai">AI</span></span>
-            <span>2026-05-15</span>
+          <div class="post-cards" data-category="linux"></div>
+          <div class="empty-state">
+            <p>暂无笔记，敬请期待 ✍️</p>
           </div>
-        </a>
-        <a href="posts/模型推理.html" class="post-card">
-          <div class="post-card-title">模型推理</div>
-          <div class="post-card-desc">LLM 推理流程六步走：分词 → 嵌入 → Transformer 计算 → 输出 Logits → 采样 → 自回归生成，逐 token 循环直到结束。</div>
-          <div class="post-card-meta">
-            <span><span class="tag tag-ai">AI</span></span>
-            <span>2026-05-15</span>
+        </div>
+
+        <!-- ===== Network ===== -->
+        <div class="category-group" id="network">
+          <div class="category-group-title">
+            <span class="cat-dot" style="background:var(--tag-network)"></span>
+            Network
           </div>
-        </a>
-        <a href="posts/function-calling与mcp.html" class="post-card">
-          <div class="post-card-title">Function Calling与MCP</div>
-          <div class="post-card-desc">LLM 工具调用全链路：Function Calling 五步流程、MCP 标准化协议的客户端/服务器架构、Tool 与 Skill 的区别及技能四要素。</div>
-          <div class="post-card-meta">
-            <span><span class="tag tag-ai">AI</span></span>
-            <span>2026-05-15</span>
+          <div class="post-cards" data-category="network">
+            <a href="posts/ip包结构与mtu位置.html" class="post-card" data-title="IP包结构与MTU位置" data-date="2026-05-15" data-tags="network">
+              <div class="post-card-title">IP包结构与MTU位置</div>
+              <div class="post-card-desc">IP 包结构与 MTU 详解：头部字段含义、MTU 在协议栈中的位置、分片与 PMTUD 机制，以及各层封装的嵌套关系。</div>
+              <div class="post-card-meta">
+                <span><span class="tag tag-network">Network</span></span>
+                <span>2026-05-15</span>
+              </div>
+            </a>
           </div>
-        </a>
+        </div>
+
+        <!-- ===== AI ===== -->
+        <div class="category-group" id="ai">
+          <div class="category-group-title">
+            <span class="cat-dot" style="background:var(--tag-ai)"></span>
+            AI
+          </div>
+          <div class="post-cards" data-category="ai">
+            <a href="posts/harness-engineering是什么.html" class="post-card" data-title="Harness Engineering 是什么" data-date="2026-05-15" data-tags="ai">
+              <div class="post-card-title">Harness Engineering 是什么</div>
+              <div class="post-card-desc">当 AI 智能体取代人类成为代码主要生产者时，工程师从"写代码"转向"设计环境、明确意图、构建反馈回路"，让智能体可靠执行——人类掌舵，智能体执行。</div>
+              <div class="post-card-meta">
+                <span><span class="tag tag-ai">AI</span></span>
+                <span>2026-05-15</span>
+              </div>
+            </a>
+            <a href="posts/ai常见术语.html" class="post-card" data-title="AI常见术语" data-date="2026-05-15" data-tags="ai">
+              <div class="post-card-title">AI常见术语</div>
+              <div class="post-card-desc">AI 基础术语详解：拟合与过拟合的区别、符号主义与联结主义的核心思想、权重和偏移量的作用、激活函数引入非线性的必要性。</div>
+              <div class="post-card-meta">
+                <span><span class="tag tag-ai">AI</span></span>
+                <span>2026-05-15</span>
+              </div>
+            </a>
+            <a href="posts/nlp基础概念.html" class="post-card" data-title="NLP基础概念" data-date="2026-05-15" data-tags="ai">
+              <div class="post-card-title">NLP基础概念</div>
+              <div class="post-card-desc">NLP 文本表示进化史：从 VSM 稀疏向量到 N-gram 接龙猜词，再到 Word2Vec 稠密语义向量和 ELMo 语境动态表示，一步步走向现代大模型。</div>
+              <div class="post-card-meta">
+                <span><span class="tag tag-ai">AI</span></span>
+                <span>2026-05-15</span>
+              </div>
+            </a>
+            <a href="posts/llm类型介绍.html" class="post-card" data-title="LLM类型介绍" data-date="2026-05-15" data-tags="ai">
+              <div class="post-card-title">LLM类型介绍</div>
+              <div class="post-card-desc">大语言模型分类概览：Base 模型与 Chat 模型的区别、多模态 LLM、Agent 模型、Code 模型，以及提示（Prompting）与微调（Fine-tuning）的差异。</div>
+              <div class="post-card-meta">
+                <span><span class="tag tag-ai">AI</span></span>
+                <span>2026-05-15</span>
+              </div>
+            </a>
+            <a href="posts/训练微调与强化学习.html" class="post-card" data-title="训练微调与强化学习" data-date="2026-05-15" data-tags="ai">
+              <div class="post-card-title">训练微调与强化学习</div>
+              <div class="post-card-desc">LLM 三阶段训练范式：预训练、微调、强化学习的核心逻辑，以及将大模型类比操作系统内核的独特视角——Agent 开发就是开发 LLM 上的应用程序。</div>
+              <div class="post-card-meta">
+                <span><span class="tag tag-ai">AI</span></span>
+                <span>2026-05-15</span>
+              </div>
+            </a>
+            <a href="posts/大模型怎么练出来.html" class="post-card" data-title="大模型怎么练出来" data-date="2026-05-15" data-tags="ai">
+              <div class="post-card-title">大模型怎么练出来</div>
+              <div class="post-card-desc">从数据准备到模型部署的完整流程：Tokenizer (BPE)、数据清洗八步骤、预训练与后训练 (SFT/RLHF/DPO)、神经网络训练原理与反向传播。</div>
+              <div class="post-card-meta">
+                <span><span class="tag tag-ai">AI</span></span>
+                <span>2026-05-15</span>
+              </div>
+            </a>
+            <a href="posts/模型推理.html" class="post-card" data-title="模型推理" data-date="2026-05-15" data-tags="ai">
+              <div class="post-card-title">模型推理</div>
+              <div class="post-card-desc">LLM 推理流程六步走：分词 → 嵌入 → Transformer 计算 → 输出 Logits → 采样 → 自回归生成，逐 token 循环直到结束。</div>
+              <div class="post-card-meta">
+                <span><span class="tag tag-ai">AI</span></span>
+                <span>2026-05-15</span>
+              </div>
+            </a>
+            <a href="posts/function-calling与mcp.html" class="post-card" data-title="Function Calling与MCP" data-date="2026-05-15" data-tags="ai">
+              <div class="post-card-title">Function Calling与MCP</div>
+              <div class="post-card-desc">LLM 工具调用全链路：Function Calling 五步流程、MCP 标准化协议的客户端/服务器架构、Tool 与 Skill 的区别及技能四要素。</div>
+              <div class="post-card-meta">
+                <span><span class="tag tag-ai">AI</span></span>
+                <span>2026-05-15</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
       </div>
+      <!-- /category-view -->
 
     </div>
   </main>
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<script src="search-index.js"></script>
 <script>
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('overlay').classList.toggle('show');
 }
+
+(function() {
+  var TAG_CLASS_MAP = {
+    kubernetes: 'tag-k8s', go: 'tag-go', python: 'tag-python',
+    devops: 'tag-devops', linux: 'tag-linux', network: 'tag-network', ai: 'tag-ai'
+  };
+  var TAG_LABEL_MAP = {
+    kubernetes: 'Kubernetes', go: 'Go', python: 'Python',
+    devops: 'DevOps', linux: 'Linux', network: 'Network', ai: 'AI'
+  };
+
+  var fuse = new Fuse(window.SEARCH_INDEX || [], {
+    keys: [
+      { name: 'title', weight: 0.4 },
+      { name: 'desc', weight: 0.35 },
+      { name: 'tags', weight: 0.25 }
+    ],
+    threshold: 0.35,
+    ignoreLocation: true,
+    includeScore: true
+  });
+
+  var searchInput = document.getElementById('search-input');
+  var searchClear = document.getElementById('search-clear');
+  var searchResults = document.getElementById('search-results');
+  var searchResultsList = document.getElementById('search-results-list');
+  var searchResultsCount = document.getElementById('search-results-count');
+  var searchResultsClear = document.getElementById('search-results-clear');
+  var categoryView = document.getElementById('category-view');
+  var sortControls = document.getElementById('sort-controls');
+  var tagFilterBar = document.getElementById('tag-filter-bar');
+
+  var currentSort = 'date-desc';
+  var currentTag = '';
+  var debounceTimer = null;
+
+  // --- Search ---
+  searchInput.addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(doSearch, 250);
+    searchClear.style.display = this.value ? 'flex' : 'none';
+  });
+
+  searchClear.addEventListener('click', function() {
+    searchInput.value = '';
+    searchClear.style.display = 'none';
+    hideSearchResults();
+  });
+
+  searchResultsClear.addEventListener('click', function() {
+    searchInput.value = '';
+    searchClear.style.display = 'none';
+    hideSearchResults();
+  });
+
+  function doSearch() {
+    var query = searchInput.value.trim();
+    if (!query) { hideSearchResults(); return; }
+
+    var results = fuse.search(query);
+    categoryView.style.display = 'none';
+    sortControls.style.display = 'none';
+    searchResults.style.display = 'block';
+
+    searchResultsCount.textContent = results.length + ' 篇匹配 "' + query + '"';
+
+    if (results.length === 0) {
+      searchResultsList.innerHTML = '<div class="search-empty">未找到相关笔记</div>';
+      return;
+    }
+
+    searchResultsList.innerHTML = results.map(function(r) {
+      var item = r.item;
+      var tagHtml = item.tags.map(function(t) {
+        return '<span class="tag ' + (TAG_CLASS_MAP[t] || '') + '">' + (TAG_LABEL_MAP[t] || t) + '</span>';
+      }).join('');
+      return '<a href="' + item.url + '" class="post-card">' +
+        '<div class="post-card-title">' + item.title + '</div>' +
+        '<div class="post-card-desc">' + item.desc + '</div>' +
+        '<div class="post-card-meta"><span>' + tagHtml + '</span><span>' + item.date + '</span></div>' +
+        '</a>';
+    }).join('');
+  }
+
+  function hideSearchResults() {
+    searchResults.style.display = 'none';
+    searchResultsList.innerHTML = '';
+    categoryView.style.display = '';
+    sortControls.style.display = '';
+    applyFilters();
+  }
+
+  // --- Tag Filter ---
+  tagFilterBar.addEventListener('click', function(e) {
+    var btn = e.target.closest('.tag-filter-btn');
+    if (!btn) return;
+    var tag = btn.dataset.tag;
+
+    tagFilterBar.querySelectorAll('.tag-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentTag = tag;
+
+    applyFilters();
+  });
+
+  // --- Sort ---
+  sortControls.addEventListener('click', function(e) {
+    var btn = e.target.closest('.sort-btn');
+    if (!btn) return;
+    sortControls.querySelectorAll('.sort-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentSort = btn.dataset.sort;
+    applyFilters();
+  });
+
+  // --- Apply tag filter + sort ---
+  function applyFilters() {
+    var groups = document.querySelectorAll('.category-group');
+
+    groups.forEach(function(group) {
+      var cardsContainer = group.querySelector('.post-cards');
+      var emptyState = group.querySelector('.empty-state');
+      var cards = cardsContainer ? Array.from(cardsContainer.querySelectorAll('.post-card')) : [];
+
+      // Tag filter
+      if (currentTag) {
+        var hasVisible = false;
+        cards.forEach(function(card) {
+          var tags = (card.dataset.tags || '').split(',');
+          var visible = tags.indexOf(currentTag) !== -1;
+          card.style.display = visible ? '' : 'none';
+          if (visible) hasVisible = true;
+        });
+        group.style.display = hasVisible ? '' : 'none';
+        if (emptyState) emptyState.style.display = 'none';
+      } else {
+        cards.forEach(function(card) { card.style.display = ''; });
+        group.style.display = '';
+        if (emptyState && cards.length === 0) emptyState.style.display = '';
+        else if (emptyState) emptyState.style.display = 'none';
+      }
+
+      // Sort
+      if (cards.length > 1) {
+        cards.sort(function(a, b) {
+          if (currentSort === 'date-desc') return (b.dataset.date || '').localeCompare(a.dataset.date || '');
+          if (currentSort === 'date-asc') return (a.dataset.date || '').localeCompare(b.dataset.date || '');
+          if (currentSort === 'title-asc') return (a.dataset.title || '').localeCompare(b.dataset.title || '');
+          return 0;
+        });
+        cards.forEach(function(card) { cardsContainer.appendChild(card); });
+      }
+    });
+
+    // When filtering by tag, also hide empty category headers for cleanliness
+    if (currentTag) {
+      groups.forEach(function(group) {
+        var cardsContainer = group.querySelector('.post-cards');
+        var visibleCards = cardsContainer ? cardsContainer.querySelectorAll('.post-card:not([style*="display: none"])') : [];
+        group.style.display = visibleCards.length > 0 ? '' : 'none';
+      });
+    }
+  }
+
+  // Keyboard shortcut: / to focus search
+  document.addEventListener('keydown', function(e) {
+    if (e.key === '/' && document.activeElement !== searchInput) {
+      e.preventDefault();
+      searchInput.focus();
+    }
+    if (e.key === 'Escape' && document.activeElement === searchInput) {
+      searchInput.blur();
+      if (!searchInput.value.trim()) { hideSearchResults(); }
+    }
+  });
+
+  // Initial sort
+  applyFilters();
+})();
 </script>
 
 </body>
