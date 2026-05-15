@@ -86,5 +86,13 @@ window.SEARCH_INDEX = [
     category: "ai",
     date: "2026-05-15",
     url: "posts/function-calling与mcp.html"
+  },
+  {
+    title: "CPU软中断高排查记录",
+    desc: "KVM 宿主机 CPU 软中断高排查：perf 定位热点、/proc/softirqs 确认 NET_RX 分布不均、RPS 关闭导致软中断无法跨核分流的根因分析与优化方案。",
+    tags: ["linux", "network", "devops"],
+    category: "linux",
+    date: "2026-05-15",
+    url: "posts/cpu软中断高排查记录.html"
   }
 ];
