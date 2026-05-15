@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLM类型介绍 - Tech Notes</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="layout">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html" class="blog-title"><span class="icon">📒</span> Tech Notes</a>
+      <div class="blog-subtitle">技术笔记 · 持续更新</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">分类</div>
+        <a href="../index.html#kubernetes" class="nav-item"><span class="dot" style="background:var(--tag-k8s)"></span>Kubernetes<span class="count">2</span></a>
+        <a href="../index.html#go" class="nav-item"><span class="dot" style="background:var(--tag-go)"></span>Go<span class="count">0</span></a>
+        <a href="../index.html#python" class="nav-item"><span class="dot" style="background:var(--tag-python)"></span>Python<span class="count">0</span></a>
+        <a href="../index.html#devops" class="nav-item"><span class="dot" style="background:var(--tag-devops)"></span>DevOps<span class="count">0</span></a>
+        <a href="../index.html#linux" class="nav-item"><span class="dot" style="background:var(--tag-linux)"></span>Linux<span class="count">0</span></a>
+        <a href="../index.html#network" class="nav-item"><span class="dot" style="background:var(--tag-network)"></span>Network<span class="count">1</span></a>
+        <a href="../index.html#ai" class="nav-item active"><span class="dot" style="background:var(--tag-ai)"></span>AI<span class="count">8</span></a>
+      </div>
+      <div class="nav-section" style="margin-top:16px">
+        <div class="nav-section-title">链接</div>
+        <a href="https://github.com/pro12221" class="nav-item" target="_blank"><span class="dot" style="background:#24292e"></span>GitHub</a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">&copy; 2026 Tech Notes</div>
+  </aside>
+
+  <main class="main">
+    <div class="content-wrapper">
+
+      <div class="article-header">
+        <div class="breadcrumb">
+          <a href="../index.html">首页</a> / <a href="../index.html#ai">AI</a>
+        </div>
+        <h1>LLM类型介绍</h1>
+        <div class="article-meta">
+          <span><span class="tag tag-ai">AI</span></span>
+          <span>2026-05-15</span>
+        </div>
+      </div>
+
+      <div class="article-layout">
+        <div class="article-content">
+
+        <h2>1. Base模型和Chat模型</h2>
+
+        <p><strong>base模型</strong>，也就是基础模型，是在海量不同文本上训练出来的预测后续文本的模型。后续文本未必是对指令和对话的响应。</p>
+
+        <p><strong>chat模型</strong>，也就是对话模型，是在base基础上通过对话记录（指令-响应）继续做微调和强化学习，让它接受指令和用户对话时，续写出来的是遵循指令的，人类预期的assistant的响应内容。</p>
+
+        <h2>2. 多模态LLM</h2>
+
+        <p>多模态LLM将文本和其他模态的信息结合起来，比如图像、视频、音频和其他感官数据，多模态LLM接受了多种类型的数据训练，有助于transformer找到不同模态之间的关系，完成一些新的LLM不能完成的任务，比如图片描述，音乐解读，视频理解等。</p>
+
+        <h2>3. Agent模型</h2>
+
+        <p>LLM具备agent大脑的能力，与若干关键组件协作，包括：</p>
+
+        <ul>
+          <li><strong>规划（Planning）</strong>：子目标拆解，纠错，反思和完善。</li>
+          <li><strong>记忆（Memory）</strong>：短期记忆（上下文，长窗口），长期记忆（通过搜索或者向量引擎实现）。</li>
+          <li><strong>工具使用（Tool Use）</strong>：模型学习调用外部API获取额外的能力。</li>
+        </ul>
+
+        <h2>4. Code模型</h2>
+
+        <p>Code模型在模型的预训练和SFT中加入了更多的代码数据占比，在代码的一系列任务，比如代码补齐，代码纠错，以及零样本完成编程任务指令。同时，根据不同的代码语言，也会有python，java等更多的专业语言代码模型。</p>
+
+        <h2>5. 提示（Prompting）与微调（Fine-tuning）</h2>
+
+        <h3>5.1 提示 (Prompting)</h3>
+
+        <p>这是最基础的使用方式，就像你现在和我聊天一样。</p>
+
+        <ul>
+          <li><strong>机制</strong>：你给模型一个指令（Prompt），模型根据它预先训练好的知识给出回答（Output）。</li>
+          <li><strong>特点</strong>：
+            <ul>
+              <li><strong>即时性</strong>：不需要修改模型本身，改改说话方式（提示词工程）就能获得不同的效果。</li>
+              <li><strong>局限性</strong>：模型的知识储备停留在它被训练完的那一刻，它没有学习到你的特定新知识。</li>
+            </ul>
+          </li>
+          <li><strong>打个比方</strong>：就像请一位非常有才华的老师来帮忙。你只需要通过<strong>写信（提示词）</strong>告诉他你的要求，他就会根据自己的学识给你写出回信。</li>
+        </ul>
+
+        <h3>5.2 微调 (Fine-tuning)</h3>
+
+        <p>这是一种更深层的"改造"过程。</p>
+
+        <ul>
+          <li><strong>机制</strong>：将特定的<strong>微调数据（Fine-tuning data）</strong>喂给模型，通过再次训练，修改模型内部的参数。</li>
+          <li><strong>特点</strong>：
+            <ul>
+              <li><strong>专业化</strong>：让模型学习特定的语气、格式或某个专业领域的深度知识（比如让它变得像个专业的法律顾问或医生）。</li>
+              <li><strong>持久性</strong>：训练完成后，模型本身发生了变化，以后即使不给复杂的提示，它也天然具备这种专业能力。</li>
+            </ul>
+          </li>
+          <li><strong>打个比方</strong>：就像把这位才华横溢的老师送去参加一个为期三个月的<strong>特种兵训练（微调）</strong>。训练结束后，他不仅是位老师，还是个专业的特种兵。</li>
+        </ul>
+
+      </div>
+
+        <aside class="toc-container" id="toc-container">
+          <div class="toc-title">目录</div>
+          <ul class="toc-list" id="toc-list"></ul>
+        </aside>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<button class="toc-mobile-btn" id="toc-mobile-btn" onclick="toggleMobileToc()">☰</button>
+<div class="toc-mobile-panel" id="toc-mobile-panel">
+  <div class="toc-title">目录</div>
+  <ul class="toc-list" id="toc-mobile-list"></ul>
+</div>
+
+<script>
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show')}
+function toggleMobileToc(){document.getElementById('toc-mobile-panel').classList.toggle('show')}
+(function(){var c=document.querySelector('.article-content');if(!c)return;var h=c.querySelectorAll('h2,h3'),t=document.getElementById('toc-list'),m=document.getElementById('toc-mobile-list');if(!t||h.length===0)return;var n=0;h.forEach(function(e){n++;var s='section-'+n;e.id=s;var li=document.createElement('li');li.className='toc-item';var a=document.createElement('a');a.className='toc-link'+(e.tagName==='H3'?' level-h3':'');a.href='#'+s;a.textContent=e.textContent;a.setAttribute('data-target',s);a.addEventListener('click',function(ev){ev.preventDefault();var tgt=document.getElementById(s);if(tgt)tgt.scrollIntoView({behavior:'smooth',block:'start'});var mp=document.getElementById('toc-mobile-panel');if(mp)mp.classList.remove('show')});li.appendChild(a);t.appendChild(li);if(m){var l2=li.cloneNode(true);l2.querySelector('a').addEventListener('click',function(ev){ev.preventDefault();var tgt=document.getElementById(s);if(tgt)tgt.scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('toc-mobile-panel').classList.remove('show')});m.appendChild(l2)}});var tl=document.querySelectorAll('.toc-link'),ah=c.querySelectorAll('h2,h3');function ua(){var st=window.scrollY||document.documentElement.scrollTop,ci='';ah.forEach(function(e){if(e.offsetTop-60<=st)ci=e.id});tl.forEach(function(l){l.classList.toggle('active',l.getAttribute('data-target')===ci)})}var tk=false;window.addEventListener('scroll',function(){if(!tk){window.requestAnimationFrame(function(){ua();tk=false});tk=true}});ua()})();
+</script>
+
+</body>
+</html>

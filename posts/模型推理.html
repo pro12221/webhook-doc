@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>模型推理 - Tech Notes</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="layout">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html" class="blog-title"><span class="icon">📒</span> Tech Notes</a>
+      <div class="blog-subtitle">技术笔记 · 持续更新</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">分类</div>
+        <a href="../index.html#kubernetes" class="nav-item"><span class="dot" style="background:var(--tag-k8s)"></span>Kubernetes<span class="count">2</span></a>
+        <a href="../index.html#go" class="nav-item"><span class="dot" style="background:var(--tag-go)"></span>Go<span class="count">0</span></a>
+        <a href="../index.html#python" class="nav-item"><span class="dot" style="background:var(--tag-python)"></span>Python<span class="count">0</span></a>
+        <a href="../index.html#devops" class="nav-item"><span class="dot" style="background:var(--tag-devops)"></span>DevOps<span class="count">0</span></a>
+        <a href="../index.html#linux" class="nav-item"><span class="dot" style="background:var(--tag-linux)"></span>Linux<span class="count">0</span></a>
+        <a href="../index.html#network" class="nav-item"><span class="dot" style="background:var(--tag-network)"></span>Network<span class="count">1</span></a>
+        <a href="../index.html#ai" class="nav-item active"><span class="dot" style="background:var(--tag-ai)"></span>AI<span class="count">8</span></a>
+      </div>
+      <div class="nav-section" style="margin-top:16px">
+        <div class="nav-section-title">链接</div>
+        <a href="https://github.com/pro12221" class="nav-item" target="_blank"><span class="dot" style="background:#24292e"></span>GitHub</a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">&copy; 2026 Tech Notes</div>
+  </aside>
+
+  <main class="main">
+    <div class="content-wrapper">
+
+      <div class="article-header">
+        <div class="breadcrumb">
+          <a href="../index.html">首页</a> / <a href="../index.html#ai">AI</a>
+        </div>
+        <h1>模型推理</h1>
+        <div class="article-meta">
+          <span><span class="tag tag-ai">AI</span></span>
+          <span>2026-05-15</span>
+        </div>
+      </div>
+
+      <div class="article-layout">
+        <div class="article-content">
+
+        <p>模型推理指利用训练好的模型进行运算，利用输入的新数据来一次性获得正确结论的过程。</p>
+
+        <h2>1. 分词（Tokenization）</h2>
+        <p>分词器将提示拆分为标记列表。根据模型的词汇表，某些单词可能会被拆分为多个标记。每个令牌都由一个唯一的数字表示。</p>
+
+        <h2>2. 嵌入（Embedding）</h2>
+        <p>每个数字标记都会转换为embedding向量。embedding向量是固定大小的向量，以 LLM 更有效处理的方式表示标记。所有embedding一起形成embedding矩阵。</p>
+
+        <h2>3. Transformer 计算</h2>
+        <p>嵌入矩阵用作Transformer的输入。Transformer 是一个神经网络，是LLM的核心。Transformer 由多层layer组成。每层都采用输入矩阵并使用模型参数对其执行各种数学运算，最值得注意的是self-attention机制。该层的输出用作下一层的输入。</p>
+
+        <h2>4. 输出 Logits</h2>
+        <p>最终的神经网络将 Transformer 的输出转换为logits。每个可能的下一个标记都有一个相应的 logit，它表示该标记是句子"正确"延续的概率。</p>
+
+        <h2>5. 采样（Sampling）</h2>
+        <p>使用多种采样技术之一从 logits 列表中选择下一个标记。</p>
+
+        <h2>6. 自回归生成</h2>
+        <p>所选token作为输出返回。要继续生成token，请将所选令牌附加到步骤 1 中的令牌列表，然后重复该过程。这可以继续下去，直到生成所需数量的token，或者 LLM 发出特殊的流结束 (EOS) 令牌。</p>
+
+        <div class="highlight-box">
+          <p><strong>💡 提示：</strong>整个推理过程是"自回归"的——每次生成一个 token，把它追加到输入中，再生成下一个 token，如此循环直到结束。这就是为什么大模型生成文本是逐字出现的，而不是一次性的。</p>
+        </div>
+
+      </div>
+
+        <aside class="toc-container" id="toc-container">
+          <div class="toc-title">目录</div>
+          <ul class="toc-list" id="toc-list"></ul>
+        </aside>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<button class="toc-mobile-btn" id="toc-mobile-btn" onclick="toggleMobileToc()">☰</button>
+<div class="toc-mobile-panel" id="toc-mobile-panel">
+  <div class="toc-title">目录</div>
+  <ul class="toc-list" id="toc-mobile-list"></ul>
+</div>
+
+<script>
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show')}
+function toggleMobileToc(){document.getElementById('toc-mobile-panel').classList.toggle('show')}
+(function(){var c=document.querySelector('.article-content');if(!c)return;var h=c.querySelectorAll('h2,h3'),t=document.getElementById('toc-list'),m=document.getElementById('toc-mobile-list');if(!t||h.length===0)return;var n=0;h.forEach(function(e){n++;var s='section-'+n;e.id=s;var li=document.createElement('li');li.className='toc-item';var a=document.createElement('a');a.className='toc-link'+(e.tagName==='H3'?' level-h3':'');a.href='#'+s;a.textContent=e.textContent;a.setAttribute('data-target',s);a.addEventListener('click',function(ev){ev.preventDefault();var tgt=document.getElementById(s);if(tgt)tgt.scrollIntoView({behavior:'smooth',block:'start'});var mp=document.getElementById('toc-mobile-panel');if(mp)mp.classList.remove('show')});li.appendChild(a);t.appendChild(li);if(m){var l2=li.cloneNode(true);l2.querySelector('a').addEventListener('click',function(ev){ev.preventDefault();var tgt=document.getElementById(s);if(tgt)tgt.scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('toc-mobile-panel').classList.remove('show')});m.appendChild(l2)}});var tl=document.querySelectorAll('.toc-link'),ah=c.querySelectorAll('h2,h3');function ua(){var st=window.scrollY||document.documentElement.scrollTop,ci='';ah.forEach(function(e){if(e.offsetTop-60<=st)ci=e.id});tl.forEach(function(l){l.classList.toggle('active',l.getAttribute('data-target')===ci)})}var tk=false;window.addEventListener('scroll',function(){if(!tk){window.requestAnimationFrame(function(){ua();tk=false});tk=true}});ua()})();
+</script>
+
+</body>
+</html>

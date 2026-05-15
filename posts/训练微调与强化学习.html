@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>训练微调与强化学习 - Tech Notes</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="layout">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html" class="blog-title"><span class="icon">📒</span> Tech Notes</a>
+      <div class="blog-subtitle">技术笔记 · 持续更新</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">分类</div>
+        <a href="../index.html#kubernetes" class="nav-item"><span class="dot" style="background:var(--tag-k8s)"></span>Kubernetes<span class="count">2</span></a>
+        <a href="../index.html#go" class="nav-item"><span class="dot" style="background:var(--tag-go)"></span>Go<span class="count">0</span></a>
+        <a href="../index.html#python" class="nav-item"><span class="dot" style="background:var(--tag-python)"></span>Python<span class="count">0</span></a>
+        <a href="../index.html#devops" class="nav-item"><span class="dot" style="background:var(--tag-devops)"></span>DevOps<span class="count">0</span></a>
+        <a href="../index.html#linux" class="nav-item"><span class="dot" style="background:var(--tag-linux)"></span>Linux<span class="count">0</span></a>
+        <a href="../index.html#network" class="nav-item"><span class="dot" style="background:var(--tag-network)"></span>Network<span class="count">1</span></a>
+        <a href="../index.html#ai" class="nav-item active"><span class="dot" style="background:var(--tag-ai)"></span>AI<span class="count">8</span></a>
+      </div>
+      <div class="nav-section" style="margin-top:16px">
+        <div class="nav-section-title">链接</div>
+        <a href="https://github.com/pro12221" class="nav-item" target="_blank"><span class="dot" style="background:#24292e"></span>GitHub</a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">&copy; 2026 Tech Notes</div>
+  </aside>
+
+  <main class="main">
+    <div class="content-wrapper">
+
+      <div class="article-header">
+        <div class="breadcrumb">
+          <a href="../index.html">首页</a> / <a href="../index.html#ai">AI</a>
+        </div>
+        <h1>训练微调与强化学习</h1>
+        <div class="article-meta">
+          <span><span class="tag tag-ai">AI</span></span>
+          <span>2026-05-15</span>
+        </div>
+      </div>
+
+      <div class="article-layout">
+        <div class="article-content">
+
+        <h2>1. 训练</h2>
+
+        <p>训练是大模型学习的起点，通过在海量数据上进行预训练，模型学会理解和生成语言。这是最消耗算力和数据的阶段。</p>
+
+        <h2>2. 微调</h2>
+
+        <p>微调是在预训练模型的基础上，用特定领域或特定格式的数据继续训练，让模型获得专业化能力。微调所需的数据量和算力远小于预训练，但能显著提升模型在目标场景的表现。</p>
+
+        <h2>3. 强化学习</h2>
+
+        <p>强化学习是让模型通过"试错+奖励"的方式学习，核心思想是让模型在多种可能的输出中选择人类更偏好的那个，从而对齐人类价值观和期望。</p>
+
+        <h2>4. 将大模型类比成操作系统的内核</h2>
+
+        <p>大模型与操作系统内核有惊人的对应关系：</p>
+
+        <table>
+          <thead>
+            <tr><th>操作系统概念</th><th>大模型对应</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>硬盘/网络</td><td>互联网浏览、本地文件检索（RAG）</td></tr>
+            <tr><td>内存（RAM）</td><td>上下文窗口（Context Window）。这是大模型的"工作记忆"，有限且珍贵。</td></tr>
+            <tr><td>CPU</td><td>大模型本身的推理计算</td></tr>
+            <tr><td>外设/工具</td><td>计算器、代码解释器、搜索引擎、图像生成器...</td></tr>
+            <tr><td>App Store</td><td>各种定制化的 Agent / GPTs</td></tr>
+          </tbody>
+        </table>
+
+        <h3>4.1 生态层面的相似性</h3>
+
+        <ul>
+          <li><strong>闭源操作系统</strong> → Windows / macOS ↔ GPT / Claude / Gemini</li>
+          <li><strong>开源操作系统</strong> → Linux 生态 ↔ Llama / Mistral / Qwen 生态</li>
+        </ul>
+
+        <p>这个类比对理解 Agent 架构太有用了。当你在做 Agent 开发的时候，你其实就是在这个"LLM 操作系统"上开发应用。你的 Agent 就像操作系统上的一个应用程序：</p>
+
+        <ul>
+          <li>它通过"系统调用"使用工具（Tool Use）</li>
+          <li>它通过上下文窗口管理"工作记忆"（Memory Management）</li>
+          <li>它需要在有限的资源（token 预算）内完成任务</li>
+          <li>它可以调度多个子任务（Multi-threading / Multi-Agent）</li>
+        </ul>
+
+        <h3>4.2 更多操作系统概念的对应</h3>
+
+        <table>
+          <thead>
+            <tr><th>操作系统概念</th><th>大模型对应</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>内核态 vs 用户态</td><td>System Prompt vs User Prompt</td></tr>
+            <tr><td>进程调度</td><td>Agent 的任务编排（Orchestration）</td></tr>
+            <tr><td>文件系统</td><td>外部知识库 / 向量数据库</td></tr>
+            <tr><td>IPC（进程间通信）</td><td>多 Agent 之间的消息传递</td></tr>
+          </tbody>
+        </table>
+
+      </div>
+
+        <aside class="toc-container" id="toc-container">
+          <div class="toc-title">目录</div>
+          <ul class="toc-list" id="toc-list"></ul>
+        </aside>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<button class="toc-mobile-btn" id="toc-mobile-btn" onclick="toggleMobileToc()">☰</button>
+<div class="toc-mobile-panel" id="toc-mobile-panel">
+  <div class="toc-title">目录</div>
+  <ul class="toc-list" id="toc-mobile-list"></ul>
+</div>
+
+<script>
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show')}
+function toggleMobileToc(){document.getElementById('toc-mobile-panel').classList.toggle('show')}
+(function(){var c=document.querySelector('.article-content');if(!c)return;var h=c.querySelectorAll('h2,h3'),t=document.getElementById('toc-list'),m=document.getElementById('toc-mobile-list');if(!t||h.length===0)return;var n=0;h.forEach(function(e){n++;var s='section-'+n;e.id=s;var li=document.createElement('li');li.className='toc-item';var a=document.createElement('a');a.className='toc-link'+(e.tagName==='H3'?' level-h3':'');a.href='#'+s;a.textContent=e.textContent;a.setAttribute('data-target',s);a.addEventListener('click',function(ev){ev.preventDefault();var tgt=document.getElementById(s);if(tgt)tgt.scrollIntoView({behavior:'smooth',block:'start'});var mp=document.getElementById('toc-mobile-panel');if(mp)mp.classList.remove('show')});li.appendChild(a);t.appendChild(li);if(m){var l2=li.cloneNode(true);l2.querySelector('a').addEventListener('click',function(ev){ev.preventDefault();var tgt=document.getElementById(s);if(tgt)tgt.scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('toc-mobile-panel').classList.remove('show')});m.appendChild(l2)}});var tl=document.querySelectorAll('.toc-link'),ah=c.querySelectorAll('h2,h3');function ua(){var st=window.scrollY||document.documentElement.scrollTop,ci='';ah.forEach(function(e){if(e.offsetTop-60<=st)ci=e.id});tl.forEach(function(l){l.classList.toggle('active',l.getAttribute('data-target')===ci)})}var tk=false;window.addEventListener('scroll',function(){if(!tk){window.requestAnimationFrame(function(){ua();tk=false});tk=true}});ua()})();
+</script>
+
+</body>
+</html>
