@@ -94,5 +94,13 @@ window.SEARCH_INDEX = [
     category: "linux",
     date: "2026-05-15",
     url: "posts/cpu软中断高排查记录.html"
+  },
+  {
+    title: "静态站点自动部署实战",
+    desc: "从 Markdown 写作到 Cloudflare Pages 上线：GitHub Actions Workflow 配置、Cloudflare Secrets 设置、完整发布流程与故障排查指南。",
+    tags: ["devops"],
+    category: "devops",
+    date: "2026-05-16",
+    url: "posts/静态站点自动部署实战.html"
   }
 ];
