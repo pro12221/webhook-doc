@@ -110,5 +110,13 @@ window.SEARCH_INDEX = [
     category: "kubernetes",
     date: "2026-05-16",
     url: "posts/k8s-api组织结构.html"
+  },
+  {
+    title: "Go 值接收者与指针接收者",
+    desc: "Go 方法接收者选择策略：值接收者操作副本无法修改原值，指针接收者可修改且避免拷贝，混用导致接口满足混乱，一致性原则要求统一选择。",
+    tags: ["go"],
+    category: "go",
+    date: "2026-05-17",
+    url: "posts/go值接收者与指针接收者.html"
   }
 ];
